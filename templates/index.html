@@ -4,182 +4,124 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Health Care Center</title>
-      <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" />
     <style>
-         body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(to right, #e0f7fa, #e1bee7);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-        .navbar-brand {
-            font-weight: 600;
-        }
-         .btn-primary {
-            background-color: #6200ea;
-            border: none;
-        }
-
-        .btn-primary:hover {
-            background-color: #4a00c8;
-        }
-      .myimg {
-        width: 50px;
-        height: 50px;
-        border: 2px solid black;
-        border-radius: 25px;
-      }
+        body {
+  background: linear-gradient(to right, #ccefff, #f0fff0);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 
       .welcome-section {
         margin-top: 50px;
         text-align: center;
       }
-
       .welcome-section h1 {
         font-size: 2.5rem;
         font-weight: bold;
       }
-
       .welcome-section p {
         font-size: 1.2rem;
         color: #555;
       }
-        footer {
-            margin-top: auto;
-            background-color: #212121;
-            color: #ccc;
-            text-align: center;
-            padding: 1rem 0;
-        }
-
-        .results-section {
-            margin-top: 2rem;
-        }
+      footer {
+        margin-top: auto;
+        background-color: #212121;
+        color: #ccc;
+        text-align: center;
+        padding: 1rem 0;
+      }
+      .results-section {
+        margin-top: 2rem;
+      }
     </style>
   </head>
 
   <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container-fluid">
-        <img src="{{ url_for('static', filename='health-care-medical-clinic-center-logo-479.webp') }}" alt="Logo" class="myimg me-2" />
-        <a class="navbar-brand" href="#">Health Care Center</a>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav me-auto">
-            <li class="nav-item"><a class="nav-link active" href="/">Home</a></li>
-            <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
-            <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
-            <li class="nav-item"><a class="nav-link" href="/developer">Developer</a></li>
-            <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
-          </ul>
-
-          <ul class="navbar-nav">
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Account</a>
-              <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="/login">Login</a></li>
-                <li><a class="dropdown-item" href="/register">Register</a></li>
-                <li><a class="dropdown-item" href="/profile">Profile</a></li>
-              </ul>
-            </li>
-          </ul>
-
-          <form class="d-flex ms-3" role="search" action="/search" method="GET">
-            <input class="form-control me-2" type="search" name="query" placeholder="Search" />
-            <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
-        </div>
-      </div>
-    </nav>
+    {% include 'partials/navbar.html' %}
 
     <!-- Welcome Section -->
     <div class="welcome-section text-center p-5 mb-4" style="
-  background: linear-gradient(135deg, rgba(224, 247, 250, 0.3), rgba(255, 255, 255, 0));
-  border-radius: 20px;
-  font-family: 'Poppins', sans-serif;
-  color: #003366;
-">
-  <h1 style="font-weight: 600; font-size: 2.5rem;">Welcome to the Health Care Center</h1>
-  <p style="font-size: 1.2rem; color: #2c3e50;">We are dedicated to your well-being. Explore our services and get in touch for professional healthcare support.</p>
-</div>
+      background: linear-gradient(135deg, rgba(224, 247, 250, 0.3), rgba(255, 255, 255, 0));
+      border-radius: 20px;
+      font-family: 'Poppins', sans-serif;
+      color: #003366;
+    ">
+      <h1 style="font-weight: 600; font-size: 2.5rem;">Welcome to the Health Care Center</h1>
+      <p style="font-size: 1.2rem; color: #2c3e50;">We are dedicated to your well-being. Explore our services and get in touch for professional healthcare support.</p>
+    </div>
 
-<!-- Symptom Checker Form -->
-<div class="container mt-5 p-5" style="
-  background: linear-gradient(to right, #e3f2fd, #ffffff);
-  color: #2c3e50;
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  max-width: 600px;
-  font-family: 'Poppins', sans-serif;
-">
-  <h4 class="mb-4 text-center" style="font-weight: 600;">🩺 Symptom Checker</h4>
-  <form action="/predict" method="post">
-    <div class="form-group mb-4">
-      <label for="symptoms" class="form-label" style="font-weight: 500;">Enter your symptoms</label>
-      <input type="text" class="form-control shadow-sm" id="symptoms" name="symptoms" placeholder="e.g., itching, vomiting, coughing" required style="
-        border-radius: 10px;
-        padding: 12px 15px;
-        border: 1px solid #ccc;
-        font-size: 1rem;
-      ">
+    <!-- Symptom Checker Form -->
+    <div class="container mt-5 p-5" style="
+      background: linear-gradient(to right, #e3f2fd, #ffffff);
+      color: #2c3e50;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      font-family: 'Poppins', sans-serif;
+    ">
+      <h4 class="mb-4 text-center" style="font-weight: 600;">🩺 Symptom Checker</h4>
+      <form action="/predict" method="post">
+        <div class="form-group mb-4">
+          <label for="symptoms" class="form-label" style="font-weight: 500;">Enter your symptoms</label>
+          <input type="text" class="form-control shadow-sm" id="symptoms" name="symptoms" placeholder="e.g., itching, vomiting, coughing" required style="
+            border-radius: 10px;
+            padding: 12px 15px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+          ">
+        </div>
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary px-5 py-2" style="
+            border-radius: 10px;
+            font-weight: 500;
+            font-size: 1rem;
+            background-color: #007bff;
+            border: none;
+            box-shadow: 0 4px 14px rgba(0, 123, 255, 0.25);
+            transition: background 0.3s ease;
+          "
+          onmouseover="this.style.backgroundColor='#0056b3'"
+          onmouseout="this.style.backgroundColor='#007bff'">
+            🔍 Diagnose
+          </button>
+        </div>
+      </form>
     </div>
-    <div class="text-center">
-      <button type="submit" class="btn btn-primary px-5 py-2" style="
-        border-radius: 10px;
-        font-weight: 500;
-        font-size: 1rem;
-        background-color: #007bff;
-        border: none;
-        box-shadow: 0 4px 14px rgba(0, 123, 255, 0.25);
-        transition: background 0.3s ease;
-      "
-      onmouseover="this.style.backgroundColor='#0056b3'"
-      onmouseout="this.style.backgroundColor='#007bff'">
-        🔍 Diagnose
-      </button>
-    </div>
-  </form>
-</div>
 
     {% if predicted_disease %}
+    {% if show_results %}
+    <h2 class="text-center my-4">Here are the results from our AI system 🤖</h2>
 
-{% if show_results %}
-<!-- Results Header Line -->
-<h2 class="text-center my-4">Here are the results from our AI system 🤖</h2>
+    <div id="resultsSection" class="container text-center mb-5">
+      <div class="row justify-content-center gy-3 gx-3">
+        <div class="col-auto">
+          <button class="btn btn-warning fw-semibold px-4 py-2 shadow rounded-pill" data-bs-toggle="modal" data-bs-target="#diseaseModal">🦠 Disease</button>
+        </div>
+        <div class="col-auto">
+          <button class="btn btn-primary fw-semibold px-4 py-2 shadow rounded-pill" data-bs-toggle="modal" data-bs-target="#descriptionModal">📖 Description</button>
+        </div>
+        <div class="col-auto">
+          <button class="btn fw-semibold px-4 py-2 shadow rounded-pill" style="background-color: #F371F9; color: white;" data-bs-toggle="modal" data-bs-target="#precautionModal">🛡️ Precautions</button>
+        </div>
+        <div class="col-auto">
+          <button class="btn fw-semibold px-4 py-2 shadow rounded-pill" style="background-color: #F8576F; color: white;" data-bs-toggle="modal" data-bs-target="#medicationsModal">💊 Medications</button>
+        </div>
+        <div class="col-auto">
+          <button class="btn fw-semibold px-4 py-2 shadow rounded-pill" style="background-color: #99F741; color: black;" data-bs-toggle="modal" data-bs-target="#workoutsModal">🏃 Workouts</button>
+        </div>
+        <div class="col-auto">
+          <button class="btn fw-semibold px-4 py-2 shadow rounded-pill" style="background-color: #E5E23D; color: black;" data-bs-toggle="modal" data-bs-target="#dietsModal">🥗 Diets</button>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    {% endif %}
 
-<!-- Result Buttons Section -->
-<div id="resultsSection" class="container text-center mb-5">
-  <div class="row justify-content-center gy-3 gx-3">
-    <div class="col-auto">
-      <button class="btn btn-warning fw-semibold px-4 py-2 shadow rounded-pill" data-bs-toggle="modal" data-bs-target="#diseaseModal">🦠 Disease</button>
-    </div>
-    <div class="col-auto">
-      <button class="btn btn-primary fw-semibold px-4 py-2 shadow rounded-pill" data-bs-toggle="modal" data-bs-target="#descriptionModal">📖 Description</button>
-    </div>
-    <div class="col-auto">
-      <button class="btn fw-semibold px-4 py-2 shadow rounded-pill" style="background-color: #F371F9; color: white;" data-bs-toggle="modal" data-bs-target="#precautionModal">🛡️ Precautions</button>
-    </div>
-    <div class="col-auto">
-      <button class="btn fw-semibold px-4 py-2 shadow rounded-pill" style="background-color: #F8576F; color: white;" data-bs-toggle="modal" data-bs-target="#medicationsModal">💊 Medications</button>
-    </div>
-    <div class="col-auto">
-      <button class="btn fw-semibold px-4 py-2 shadow rounded-pill" style="background-color: #99F741; color: black;" data-bs-toggle="modal" data-bs-target="#workoutsModal">🏃 Workouts</button>
-    </div>
-    <div class="col-auto">
-      <button class="btn fw-semibold px-4 py-2 shadow rounded-pill" style="background-color: #E5E23D; color: black;" data-bs-toggle="modal" data-bs-target="#dietsModal">🥗 Diets</button>
-    </div>
-  </div>
-</div>
-{% endif %}
-
-{% endif %}
+    <!-- Modals (disease, description, etc.) remain the same -->
 
 <!-- Disease Modal -->
     <div class="modal fade" id="diseaseModal" tabindex="-1" aria-labelledby="diseaseModalLabel" aria-hidden="true">
@@ -292,7 +234,33 @@
     </div>
 
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
-  </body>
+
+        <script>
+    const startSpeechRecognitionButton = document.getElementById('startSpeechRecognition');
+    const transcriptionDiv = document.getElementById('transcription');
+
+    startSpeechRecognitionButton.addEventListener('click', startSpeechRecognition);
+
+    function startSpeechRecognition() {
+        const recognition = new webkitSpeechRecognition(); // Use webkitSpeechRecognition for compatibility
+
+        recognition.lang = 'en-US'; // Set the language for recognition
+
+        recognition.onresult = function (event) {
+            const result = event.results[0][0].transcript;
+            transcriptionDiv.textContent = result;
+        };
+
+        recognition.onend = function () {
+            console.log('Speech recognition ended.');
+        };
+
+        recognition.start();
+    }
+</script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+</body>
+
 </html>
+
