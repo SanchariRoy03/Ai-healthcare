@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 import numpy as np
 import pandas as pd
@@ -6,7 +7,27 @@ import pickle
 
 # flask app
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'
+app.secret_key = os.environ.get("SECRET_KEY", "defaultsecretkey")
+
+@app.after_request
+def set_secure_headers(response):
+    response.headers["Content-Security-Policy"] = "default-src 'self'"
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["X-Frame-Options"] = "DENY"
+    response.headers["X-XSS-Protection"] = "1; mode=block"
+    response.headers["Referrer-Policy"] = "no-referrer"
+    response.headers['Permissions-Policy'] = 'geolocation=()'
+    return response
+
+@app.before_request
+def enforce_https():
+    if request.headers.get('X-Forwarded-Proto', 'http') != 'https':
+        url = request.url.replace('http://', 'https://', 1)
+        return redirect(url, code=301)
+
+app.config['SESSION_COOKIE_SECURE'] = True
+app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
+app.config['SESSION_COOKIE_HTTPONLY'] = True
 
 
 # load databasedataset===================================
