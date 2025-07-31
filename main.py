@@ -18,7 +18,7 @@ medications = pd.read_csv('datasets/medications.csv')
 diets = pd.read_csv("datasets/diets.csv")
 
 
-svc = pickle.load(open('models/svc.pkl','rb'))
+svc = pickle.load(open('Models/svc.pkl','rb'))
 
 # Load symptom severity data
 df = pd.read_csv("datasets/Symptom-severity.csv")
